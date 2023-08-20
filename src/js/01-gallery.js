@@ -24,35 +24,6 @@ function createMarkup(arr) {
 }
 container.insertAdjacentHTML('beforeend', createMarkup(galleryItems));
 
-container.addEventListener('click', handlerClick);
-
-function handlerClick(evt) {
-  evt.preventDefault();
-  if (evt.target === evt.currentTarget) return;
-
-  const createImage = evt.target.dataset.source;
-
-  const instance = basicLightbox.create(
-    `<img src="${createImage}" alt="${evt.target.description}">
-`,
-    {
-      onShow: () => {
-        document.addEventListener('keydown', closeModal);
-      },
-    },
-    {
-      onClose: () => {
-        document.removeEventListener('keydown', closeModal);
-      },
-    }
-  );
-  instance.show();
-
-  function closeModal(evt) {
-    if (evt.key === 'Escape') instance.close();
-  }
-}
-
 const lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
   captionPosition: 'top',
